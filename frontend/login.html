@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Learn - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            padding: 45px 35px;
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .institution-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: #667eea;
+            font-weight: 500;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .password-group {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 40px;
+            cursor: pointer;
+            color: #667eea;
+            font-size: 18px;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .forgot-password a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #764ba2;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 25px;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .signup-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .signup-link a:hover {
+            color: #764ba2;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 11px;
+            color: #999;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 30px 20px;
+            }
+
+            .title {
+                font-size: 24px;
+            }
+
+            .logo {
+                width: 70px;
+                height: 70px;
+                font-size: 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-image"></div>
+
+    <div class="container">
+        <div class="card">
+            <div class="logo-section">
+                <div class="logo">NL</div>
+                <div class="institution-name">Nova Learn</div>
+                <div class="tagline">Empower Your Learning Journey</div>
+            </div>
+
+            <div class="title">Login</div>
+
+            <form>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-group">
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                        <span class="toggle-password" onclick="togglePassword('password')">👁</span>
+                    </div>
+                </div>
+
+                <div class="forgot-password">
+                    <a href="#">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+
+
+            <div class="signup-link">
+                Don't have an account? <a href="register.html">Register here</a>
+            </div>
+
+            <div class="footer">
+                By logging in, you agree to our <a href="#">Terms of Service</a> and acknowledge that you read our <a href="#">Privacy Policy</a>.
+                <br><br>
+                © 2025 Nova Learn. All Rights Reserved.
+            </div>
+        </div>
+    </div>
+    <script>
+document.querySelector('form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    if (!email.includes('@')) {
+        alert('Email must contain "@" symbol.');
+        return;
+    }
+
+    if (password.length < 6) {
+        alert('Password must be at least 6 characters long.');
+        return;
+    }
+
+    try {
+        const response = await fetch('http://localhost:5001/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert('Login successful! Redirecting...');
+
+            if (result.role === 'teacher') {
+                window.location.href = 'teacher/dashboard.html';
+            } else if (result.role === 'student') {
+                window.location.href = 'student/dashboard.html';
+            } else {
+                alert('Unknown role. Contact admin.');
+            }
+        } else {
+            alert(result.message);
+        }
+    } catch (error) {
+        console.error(error);
+        alert('Server error. Please try again later.');
+    }
+});
+</script>
+</body>
+</html>

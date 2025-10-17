@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Learn - Teacher Assignments</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-small {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .brand-name {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .user-avatar:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            min-width: 180px;
+            overflow: hidden;
+            display: none;
+            z-index: 1000;
+        }
+
+        .dropdown-menu.active {
+            display: block;
+            animation: dropdownSlide 0.3s ease-out;
+        }
+
+        @keyframes dropdownSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown-item {
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .dropdown-item:hover {
+            background: #f5f7fa;
+            padding-left: 25px;
+        }
+
+        .dropdown-item:last-child {
+            border-top: 1px solid #f0f0f0;
+            color: #ff6b6b;
+        }
+
+        .dropdown-item:last-child:hover {
+            background: #ffe0e0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* Page Title & Action Button */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .create-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .create-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e0e0e0;
+            animation: fadeInUp 0.6s ease-out 0.1s both;
+        }
+
+        .tab-button {
+            padding: 15px 25px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            color: #999;
+            transition: all 0.3s ease;
+            position: relative;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+        }
+
+        .tab-button:hover {
+            color: #667eea;
+        }
+
+        .tab-button.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.6s ease-out 0.15s both;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-input,
+        .filter-select {
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .filter-input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-input:focus,
+        .filter-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        /* Assignments Grid */
+        .assignments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+
+        .assignment-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .assignment-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 28px rgba(102, 126, 234, 0.2);
+        }
+
+        .assignment-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+        }
+
+        .assignment-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .assignment-course {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .assignment-meta {
+            font-size: 12px;
+            opacity: 0.85;
+        }
+
+        .assignment-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .assignment-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .assignment-stats {
+            background: #f9f9ff;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .stat-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .stat-label {
+            color: #999;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            color: #667eea;
+            font-weight: 700;
+        }
+
+        .due-date {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+
+        .assignment-footer {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-view {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-view:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-edit {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-edit:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-delete {
+            background: #ffe0e0;
+            color: #ff6b6b;
+        }
+
+        .btn-delete:hover {
+            background: #ffcccc;
+        }
+
+        /* Submissions Table */
+        .table-container {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+            overflow-x: auto;
+        }
+
+        .table-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f9f9ff;
+            padding: 15px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 13px;
+            color: #667eea;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background: #f9f9ff;
+            transition: all 0.2s ease;
+        }
+
+        .student-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-submitted {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-graded {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .grade-input {
+            width: 60px;
+            padding: 8px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .grade-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: #764ba2;
+        }
+
+        .submission-link {
+            color: #667eea;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            animation: slideUp 0.3s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .btn-submit,
+        .btn-cancel {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-cancel {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-cancel:hover {
+            background: #e0e0e0;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .empty-state-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .empty-state-text {
+            font-size: 14px;
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 20px;
+            }
+
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .filter-section {
+                flex-direction: column;
+            }
+
+            .filter-input {
+                min-width: auto;
+            }
+
+            .assignments-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-title {
+                font-size: 24px;
+            }
+
+            .modal-content {
+                width: 95%;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-left">
+            <div class="logo-small">NL</div>
+            <div class="brand-name">Nova Learn</div>
+        </div>
+        <div class="header-right">
+                  <div class="nav-links">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="course.html">Courses</a>
+    <a href="assignment.html">Assignments</a>
+    <a href="grades.html">Grades</a>
+</div>
+            <div class="user-menu">
+                <div class="user-avatar" id="avatarMenu">SJ</div>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="#" class="dropdown-item">👤 Profile</a>
+                    <a href="#" class="dropdown-item">⚙️ Settings</a>
+                    <a href="#" class="dropdown-item">🚪 Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">✏️ Assignments</h1>
+            <button class="create-btn" onclick="openCreateModal()">+ Create Assignment</button>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab('my-assignments')">My Assignments</button>
+            <button class="tab-button" onclick="switchTab('submissions')">Submissions & Grading</button>
+        </div>
+
+        <!-- My Assignments Tab -->
+        <div id="my-assignments" class="tab-content active">
+            <!-- Filter Section -->
+            <div class="filter-section">
+                <input type="text" class="filter-input" placeholder="🔍 Search assignments..." id="searchInput" onkeyup="filterAssignments()">
+                <select class="filter-select" id="courseFilter" onchange="filterAssignments()">
+                    <option value="">All Courses</option>
+                    <option value="Web Development Fundamentals">Web Development Fundamentals</option>
+                    <option value="React.js Advanced">React.js Advanced</option>
+                    <option value="Data Science Basics">Data Science Basics</option>
+                </select>
+            </div>
+
+            <!-- Assignments Grid -->
+            <div class="assignments-grid" id="assignmentsList">
+                <!-- Assignments will be populated here -->
+            </div>
+        </div>
+
+        <!-- Submissions Tab -->
+        <div id="submissions" class="tab-content">
+            <!-- Course Filter -->
+            <div class="filter-section">
+                <select class="filter-select" id="submissionCourseFilter" onchange="filterSubmissions()">
+                    <option value="">Select Course</option>
+                    <option value="Web Development Fundamentals">Web Development Fundamentals</option>
+                    <option value="React.js Advanced">React.js Advanced</option>
+                    <option value="Data Science Basics">Data Science Basics</option>
+                </select>
+                <select class="filter-select" id="submissionAssignmentFilter" onchange="filterSubmissions()">
+                    <option value="">All Assignments</option>
+                </select>
+            </div>
+
+            <!-- Submissions Table -->
+            <div class="table-container">
+                <div class="table-title">📋 Student Submissions</div>
+                <table id="submissionsTable">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Assignment</th>
+                            <th>Submission Date</th>
+                            <th>File</th>
+                            <th>Status</th>
+                            <th>Grade</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="submissionsTableBody">
+                        <!-- Submissions will be populated here -->
+                    </tbody>
+                </table>
+                <div id="emptySubmissions" style="display: none;">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📭</div>
+                        <div class="empty-state-title">No Submissions Found</div>
+                        <div class="empty-state-text">Select a course and assignment to view submissions</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Assignment Modal -->
+    <div class="modal" id="createModal">
+        <div class="modal-content">
+            <div class="modal-header">Create New Assignment</div>
+            <form onsubmit="createAssignment(event)">
+                <div class="form-group">
+                    <label>Assignment Title *</label>
+                    <input type="text" id="assignmentTitle" placeholder="e.g., Build a React App" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Course *</label>
+                    <select id="assignmentCourse" required>
+                        <option value="">Select Course</option>
+                        <option value="Web Development Fundamentals">Web Development Fundamentals</option>
+                        <option value="React.js Advanced">React.js Advanced</option>
+                        <option value="Data Science Basics">Data Science Basics</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Description *</label>
+                    <textarea id="assignmentDescription" placeholder="Describe the assignment..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Instructions</label>
+                    <textarea id="assignmentInstructions" placeholder="Provide detailed instructions..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Due Date *</label>
+                    <input type="date" id="assignmentDueDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Total Points</label>
+                    <input type="number" id="assignmentPoints" value="100" min="1">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" onclick="closeCreateModal()">Cancel</button>
+                    <button type="submit" class="btn-submit">Create Assignment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Grading Modal -->
+    <div class="modal" id="gradingModal">
+        <div class="modal-content">
+            <div class="modal-header">Grade Submission</div>
+            <form onsubmit="submitGrade(event)">
+                <div class="form-group">
+                    <label>Student</label>
+                    <input type="text" id="gradingStudent" readonly style="background: #f5f5f5; cursor: not-allowed;">
+                </div>
+
+                <div class="form-group">
+                    <label>Assignment</label>
+                    <input type="text" id="gradingAssignment" readonly style="background: #f5f5f5; cursor: not-allowed;">
+                </div>
+
+                <div class="form-group">
+                    <label>Submission File</label>
+                    <div style="padding: 10px; background: #f9f9ff; border-radius: 6px; cursor: pointer;">
+                        <span id="gradingFile" style="color: #667eea; text-decoration: underline;">📎 View File</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Grade (0-100) *</label>
+                    <input type="number" id="gradeScore" placeholder="Enter score" min="0" max="100" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Feedback</label>
+                    <textarea id="gradeFeedback" placeholder="Provide feedback to the student..."></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" onclick="closeGradingModal()">Cancel</button>
+                    <button type="submit" class="btn-submit">Submit Grade</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Sample Data
+        const allAssignments = [
+            {
+                id: 1,
+                title: "HTML & CSS Project",
+                course: "Web Development Fundamentals",
+                description: "Create a responsive website layout",
+                instructions: "Use flexbox and grid",
+                dueDate: "2025-10-25",
+                points: 100,
+                submissions: 18,
+                graded: 12
+            },
+            {
+                id: 2,
+                title: "React Components",
+                course: "React.js Advanced",
+                description: "Build reusable components",
+                instructions: "Use hooks and props",
+                dueDate: "2025-10-30",
+                points: 100,
+                submissions: 15,
+                graded: 8
+            },
+            {
+                id: 3,
+                title: "Data Analysis Report",
+                course: "Data Science Basics",
+                description: "Analyze provided dataset",
+                instructions: "Use Python and pandas",
+                dueDate: "2025-11-05",
+                points: 100,
+                submissions: 20,
+                graded: 15
+            }
+        ];
+
+        const allSubmissions = [
+            {
+                id: 1,
+                studentName: "Alice Johnson",
+                studentEmail: "alice@email.com",
+                assignmentId: 1,
+                assignmentTitle: "HTML & CSS Project",
+                submissionDate: "2025-10-24",
+                file: "project.zip",
+                status: "Graded",
+                grade: 92,
+                feedback: "Great work on the responsive design!"
+            },
+            {
+                id: 2,
+                studentName: "Bob Smith",
+                studentEmail: "bob@email.com",
+                assignmentId: 1,
+                assignmentTitle: "HTML & CSS Project",
+                submissionDate: "2025-10-23",
+                file: "website.zip",
+                status: "Graded",
+                grade: 88,
+                feedback: "Good effort, needs improvement on accessibility"
+            },
+            {
+                id: 3,
+                studentName: "Carol White",
+                studentEmail: "carol@email.com",
+                assignmentId: 1,
+                assignmentTitle: "HTML & CSS Project",
+                submissionDate: "2025-10-25",
+                file: "design.zip",
+                status: "Submitted",
+                grade: null,
+                feedback: null
+            },
+            {
+                id: 4,
+                studentName: "David Brown",
+                studentEmail: "david@email.com",
+                assignmentId: 2,
+                assignmentTitle: "React Components",
+                submissionDate: "2025-10-28",
+                file: "react_app.zip",
+            }
+        ];
+        
