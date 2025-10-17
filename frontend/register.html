@@ -380,7 +380,7 @@
     const userData = { fullname, email, role, course, subject, password };
 
     try {
-        const response = await fetch('http://localhost:5001/register', {
+        fetch("https://novalearn-backend.onrender.com/register", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(userData)

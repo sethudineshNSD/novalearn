@@ -286,7 +286,7 @@ document.querySelector('form').addEventListener('submit', async function(e) {
     }
 
     try {
-        const response = await fetch('http://localhost:5001/login', {
+        fetch("https://novalearn-backend.onrender.com/login", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
