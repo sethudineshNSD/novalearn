@@ -380,26 +380,26 @@
     const userData = { fullname, email, role, course, subject, password };
 
     try {
-        fetch("https://novalearn-backend.onrender.com/register", {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(userData)
-        });
+    const response = await fetch("https://novalearn-backend.onrender.com/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userData)
+    });
 
-        const result = await response.json();
+    const result = await response.json();
 
-        if (response.ok) {
-            alert('Registration successful! Redirecting to login page...');
-            setTimeout(() => {
-                window.location.href = 'login.html';
-            }, 1000);
-        } else {
-            alert('Error: ' + result.message);
-        }
-    } catch (error) {
-        console.error(error);
-        alert('Server error. Please try again later.');
+    if (response.ok) {
+        alert("Registration successful! Redirecting to login page...");
+        setTimeout(() => {
+            window.location.href = "login.html";
+        }, 1000);
+    } else {
+        alert("Error: " + result.message);
     }
+} catch (error) {
+    console.error(error);
+    alert("Server error. Please try again later.");
+}
 });
 </script>
     </script>
